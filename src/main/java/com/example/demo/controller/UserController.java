@@ -58,6 +58,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
+    //Gets all users in db
     @GetMapping(value="/list")
     public ResponseEntity<List<UserModel>> getUsers(){
         List<UserModel> users = userService.getUsers();
