@@ -1,11 +1,15 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.UserDTO;
+import com.example.demo.model.UserModel;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -30,16 +34,38 @@ public class UserController {
             @RequestBody UserDTO userDTO
             ) {
         if(userDTO != null){
-            System.out.println(userDTO.getBirthdate());
             boolean inserted = userService.insertUser(userDTO);
             if(inserted){
                 return ResponseEntity.status(HttpStatus.OK).build();
             }
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
-        System.out.println("no");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
+    //Deletes user by user id
+    @DeleteMapping(value="/destroy")
+    public ResponseEntity<Void> deleteUser(
+            @RequestParam UUID userID
+    ){
+        if(userID != null){
+            boolean deleted = userService.deleteUser(userID);
+            if(deleted){
+                return ResponseEntity.status(HttpStatus.OK).build();
+            }
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @GetMapping(value="/list")
+    public ResponseEntity<List<UserModel>> getUsers(){
+        List<UserModel> users = userService.getUsers();
+        if(!users.isEmpty()){
+            return ResponseEntity.status(HttpStatus.OK).body(users);
+        }else{
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+    }
 
 }
