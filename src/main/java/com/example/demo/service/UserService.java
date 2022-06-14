@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -27,6 +29,33 @@ public class UserService {
                 userDTO.getAddress(), userDTO.getBirthdate(), userDTO.getBalance());
 
         return userRepository.insertUser(userToInsert);
+    }
+
+    public boolean deleteUser(UUID userID){
+        return userRepository.deleteByID(userID);
+    }
+
+    public List<UserDTO> getUsersNoID(){
+        List<UserModel> listModels = userRepository.getUsers();
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for(UserModel userModel : listModels){
+            UserDTO userDTO = this.fromModelToDto(userModel);
+            if(userDTO!= null){
+                userDTOS.add(userDTO);
+            }
+        }
+        return userDTOS;
+    }
+    public List<UserModel> getUsers(){
+        return userRepository.getUsers();
+    }
+
+    private UserDTO fromModelToDto(UserModel userModel){
+        if(userModel!= null){
+            return new UserDTO(userModel.getName(), userModel.getSurname(), userModel.getAddress(),
+                    userModel.getBirthdate(), userModel.getBalance());
+        }
+        return null;
     }
 
 }
