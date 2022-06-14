@@ -1,9 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ReviewDTO;
-import com.example.demo.dto.UserDTO;
 import com.example.demo.model.ReviewModel;
-import com.example.demo.model.UserModel;
 import com.example.demo.repository.ReviewRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,7 @@ public class ReviewService {
     private ReviewRepository reviewRepository;
 
     @Autowired
-    public ReviewService(UserRepository userRepository) {
+    public ReviewService(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }
 
@@ -26,7 +24,7 @@ public class ReviewService {
         UUID reviewID = UUID.randomUUID();
 
         ReviewModel reviewToInsert = new ReviewModel(reviewID, reviewDTO.getOpinion(), reviewDTO.getRating(),
-                reviewDTO.getUserID(), reviewDTO.getProductID());
+                reviewDTO.getUser_id(), reviewDTO.getProduct_id());
 
         return reviewRepository.insertReview(reviewToInsert);
     }
@@ -52,8 +50,8 @@ public class ReviewService {
 
     private ReviewDTO fromModelToDto(ReviewModel reviewModel){
         if(reviewModel!= null){
-            return new ReviewDTO(reviewModel.getOpinion(), reviewModel.getRating(), reviewModel.getUserID(),
-                    reviewModel.getProductID());
+            return new ReviewDTO(reviewModel.getOpinion(), reviewModel.getRating(), reviewModel.getUser_id(),
+                    reviewModel.getProduct_id());
         }
         return null;
     }

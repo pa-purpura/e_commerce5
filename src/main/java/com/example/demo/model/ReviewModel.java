@@ -8,17 +8,17 @@ public class ReviewModel {
     private final UUID id;
     private String opinion;
     private Integer rating;
-    private final UUID userID;
-    private final UUID productID;
+    private final UUID user_id;
+    private final UUID product_id;
 
     //Cost
 
-    public ReviewModel(UUID id, String opinion, Integer rating, UUID userID, UUID productID) {
+    public ReviewModel(UUID id, String opinion, Integer rating, UUID user_id, UUID product_id) {
         this.id = id;
         this.opinion = opinion;
         this.rating = rating;
-        this.userID = userID;
-        this.productID = productID;
+        this.user_id = user_id;
+        this.product_id = product_id;
     }
 
 
@@ -44,12 +44,12 @@ public class ReviewModel {
         this.rating = rating;
     }
 
-    public UUID getUserID() {
-        return userID;
+    public UUID getUser_id() {
+        return user_id;
     }
 
-    public UUID getProductID() {
-        return productID;
+    public UUID getProduct_id() {
+        return product_id;
     }
 
 }

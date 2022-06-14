@@ -1,8 +1,5 @@
 package com.example.demo.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import java.util.Date;
 import java.util.UUID;
 
 
@@ -10,17 +7,17 @@ public class ReviewDTO {
     //Attr
     private String opinion;
     private Integer rating;
-    private final UUID userID;
-    private final UUID productID;
+    private final UUID user_id;
+    private final UUID product_id;
 
 
     //Cost
 
-    public ReviewDTO(String opinion, Integer rating, UUID userID, UUID productID) {
+    public ReviewDTO(String opinion, Integer rating, UUID user_id, UUID product_id) {
         this.opinion = opinion;
         this.rating = rating;
-        this.userID = userID;
-        this.productID = productID;
+        this.user_id = user_id;
+        this.product_id = product_id;
     }
 
 
@@ -43,11 +40,11 @@ public class ReviewDTO {
         this.rating = rating;
     }
 
-    public UUID getUserID() {
-        return userID;
+    public UUID getUser_id() {
+        return user_id;
     }
 
-    public UUID getProductID() {
-        return productID;
+    public UUID getProduct_id() {
+        return product_id;
     }
 }

@@ -19,8 +19,8 @@ public class ReviewRepository {
                 reviewModel.getId(),
                 reviewModel.getOpinion(),
                 reviewModel.getRating(),
-                reviewModel.getUserID(),
-                reviewModel.getProductID());
+                reviewModel.getUser_id(),
+                reviewModel.getProduct_id());
         return rowsAffected > 0;
     }
 
