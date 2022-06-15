@@ -10,8 +10,9 @@ import java.util.UUID;
 
 @Repository
 public class ProductRepository {
+
     @Autowired
-    JdbcTemplate jdbcTemplate;
+     JdbcTemplate jdbcTemplate;
 
     public boolean insertProduct(ProductModel productModel){
         int rowsAffected = jdbcTemplate.update(
