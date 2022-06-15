@@ -96,3 +96,7 @@ ALTER TABLE "wishlist_product" ADD FOREIGN KEY ("product_id") REFERENCES "produc
 ALTER TABLE "review" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 
 ALTER TABLE "review" ADD FOREIGN KEY ("product_id") REFERENCES "product" ("id");
+
+
+alter table cart_product
+    add quantity int default 1;
