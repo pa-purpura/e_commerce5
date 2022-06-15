@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.model.OrderModel;
 import com.example.demo.model.OrderProductModel;
 import com.example.demo.model.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,13 @@ public class OrderProductRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
     // verificare una volta mergiato con Order branch
-    public boolean insertInOrder(OrderModel orderModel, ProductModel productModel, OrderProductModel order_productModel){
+    public boolean insertInOrder(OrderProductModel order_productModel){
         int rowsAffected = jdbcTemplate.update(
                 //verificare il nome dei campi in order model
                 "Insert Into order_product (order_id, product_id, quantity) VALUES (?,?,?)",
                 //verificare il nome id dentro orderModel
-                orderModel.getId(),
-                productModel.getId(),
+                order_productModel.getOrder_id(),
+                order_productModel.getProduct_id(),
                 order_productModel.getQuantity());
         return rowsAffected > 0;
     }
@@ -33,10 +34,9 @@ public class OrderProductRepository {
         return rowsAffected > 0;
     }
 
-    public List<OrderProductModel> getOrderProducts(orderID){
+    public List<OrderProductModel> getOrderProducts(UUID orderID){
 
-        return jdbcTemplate.query("select op.*, p.name as name, p.price as price from order_product op, product p, "
-                "where product.seller_id ='" + orderID + "';",
+        return jdbcTemplate.query("select op.*, p.name as name, p.price as price from order_product op, product p, where op.order_id ='" + orderID + "';",
                 (rs, rowNum) ->
                         new OrderProductModel(
                                 (UUID) rs.getObject("order_id"),

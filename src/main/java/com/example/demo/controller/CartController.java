@@ -114,6 +114,21 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
+    //Buy
+    @PostMapping(value = "/buy")
+    public ResponseEntity<Void> cartBuy(
+            @RequestParam UUID idCart
+    ) {
+        if(idCart != null){
+            boolean inserted = false;
+            if(inserted){
+                return ResponseEntity.status(HttpStatus.OK).build();
+            }
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
     //Deletes all products in a cart by cart id
     @DeleteMapping(value="/destroyCartProduct")
     public ResponseEntity<Void> deleteCartProduct(

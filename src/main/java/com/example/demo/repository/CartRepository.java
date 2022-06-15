@@ -38,11 +38,17 @@ public class CartRepository {
     }
 
     public CartModel getCartByUserID(UUID userID){
-        List<CartModel> cartList = jdbcTemplate.query("select * from cart where cart.user_id ='" + userID+ "';",
+        List<CartModel> cartList = jdbcTemplate.query("Select\n" +
+                        "    c.*,\n" +
+                        "    sum(p.price) as total\n" +
+                        "    from cart c, cart_product cp, product p\n" +
+                        "    where c.id = '" + userID+ "' and cp.cart_id = c.id and cp.product_id = p.id\\n\" +\n" +
+                        "   \"group by c.id;",
                 (rs, rowNum) ->
                         new CartModel(
                                 (UUID) rs.getObject("id"),
-                                (UUID) rs.getObject("user_id")
+                                (UUID) rs.getObject("user_id"),
+                                rs.getDouble("total")
                         )
         );
         return cartList.get(0);

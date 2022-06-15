@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ProductDTO;
+import com.example.demo.model.OrderModel;
 import com.example.demo.model.OrderProductModel;
 import com.example.demo.model.ProductModel;
 import com.example.demo.repository.OrderProductRepository;
@@ -22,14 +23,14 @@ public class OrderProductService {
 
     public boolean insertInOrder(OrderModel orderModel, ProductModel productModel, OrderProductModel order_productModel){
         OrderProductModel orderProductModel = new OrderProductModel(orderModel.getId(), productModel.getId() , order_productModel.getQuantity());
-        return this.orderProductRepository.insertInOrder(orderModel, productModel, order_productModel);
+        return this.orderProductRepository.insertInOrder(order_productModel);
     }
 
     public boolean deleteByOrderID(UUID orderID){
         return orderProductRepository.deleteByOrderID(orderID);
     }
 
-    public List<ProductModel> getOrderProducts(UUID orderID){
+    public List<OrderProductModel> getOrderProducts(UUID orderID){
         return orderProductRepository.getOrderProducts(orderID);
     }
 }

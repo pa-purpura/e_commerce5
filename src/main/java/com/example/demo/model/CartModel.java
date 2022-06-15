@@ -6,9 +6,20 @@ public class CartModel {
     private UUID id;
     private UUID user_id;
 
+    private double total;
+
+    public CartModel() {
+    }
+
     public CartModel(UUID id, UUID user_id) {
         this.id = id;
         this.user_id = user_id;
+    }
+
+    public CartModel(UUID id, UUID user_id, double total) {
+        this.id = id;
+        this.user_id = user_id;
+        this.total = total;
     }
 
     public UUID getId() {

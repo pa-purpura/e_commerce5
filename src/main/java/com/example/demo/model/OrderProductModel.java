@@ -12,6 +12,9 @@ public class OrderProductModel {
 
     private double price;
 
+    public OrderProductModel() {
+    }
+
     public OrderProductModel(UUID order_id, UUID product_id, int quantity, String name, double price) {
         this.order_id = order_id;
         this.product_id = product_id;
