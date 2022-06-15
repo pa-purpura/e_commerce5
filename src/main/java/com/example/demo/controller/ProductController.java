@@ -39,7 +39,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    //Deletes user by product id
+    //Deletes product by product id
     @DeleteMapping(value="/destroy")
     public ResponseEntity<Void> deleteUser(
             @RequestParam UUID productID
@@ -56,7 +56,7 @@ public class ProductController {
 
     //Gets all products in db
     @GetMapping(value="/list")
-    public ResponseEntity<List<ProductModel>> getUsers(){
+    public ResponseEntity<List<ProductModel>> getProducts(){
         List<ProductModel> products = productService.getProducts();
         if(!products.isEmpty()){
             return ResponseEntity.status(HttpStatus.OK).body(products);
@@ -67,7 +67,7 @@ public class ProductController {
 
     //Gets all products by Seller id in db
     @GetMapping(value="/listBySeller")
-    public ResponseEntity<List<ProductModel>> getUsers(
+    public ResponseEntity<List<ProductModel>> getProducts(
             @RequestParam UUID sellerID
     ){
         List<ProductModel> products = productService.getProductsBySellerID(sellerID);
