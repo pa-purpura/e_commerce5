@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.ProductViewModel;
 import com.example.demo.dto.WishlistDTO;
 import com.example.demo.model.WishlistModel;
 import com.example.demo.service.WishlistService;
@@ -27,9 +28,10 @@ public class WishlistController {
         if(wishlistService.insertWishlist(wishlistDTO)) return ResponseEntity.status(HttpStatus.OK).build();
         else return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
     }
-    @PutMapping(value="/addToWishlist")
-    public ResponseEntity<Void> addToWishlist(@RequestParam UUID wishlist_id,UUID product_id){
-        if(this.wishlistService.addToWishlist(wishlist_id,product_id))
+    //TODO non arrivano i parametri uuid
+    @PostMapping(value="/addToWishlist")
+    public ResponseEntity<Void> addToWishlist(@RequestParam UUID wishlistID, UUID productID){
+        if(this.wishlistService.addToWishlist(wishlistID,productID))
             return ResponseEntity.status(HttpStatus.OK).build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
@@ -53,11 +55,37 @@ public class WishlistController {
         if(this.wishlistService.deleteAllWishlist(userId)) return ResponseEntity.status(HttpStatus.OK).build();
         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
     }
-/*
-    public ResponseEntity<Void> deleteProdWishlist(UUID wishlist_id, UUID product_id){
+
+    //TODO check se funziona(non prende gli UUID ma le stringhe si)
+@DeleteMapping(value= "/deleteProductFromWishlist")
+    public ResponseEntity<Void> deleteProdWishlist(@RequestParam UUID wishlist_id, UUID product_id){
         if(this.wishlistService.deleteFromWishlist(wishlist_id,product_id))
             return ResponseEntity.status(HttpStatus.OK).build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-*/
+@GetMapping(value="/getProductsFromWishlist")
+   public ResponseEntity<List<ProductViewModel>> getProductsFromWishlist(@RequestParam UUID wishlist_id){
+         List<ProductViewModel> tmp = this.wishlistService.getProductsFromWishlist(wishlist_id);
+         if(tmp.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+         return ResponseEntity.status(HttpStatus.OK).body(tmp);
+   }
+
+   //TODO minchia che odio gli uuid
+   @PutMapping(value="/addWishlistToCart")
+   public ResponseEntity<Void> insertWishlistToCart(@RequestParam UUID wishlist_id, UUID user_id){
+        if(this.wishlistService.addWishlistToCart(wishlist_id,user_id))
+            return ResponseEntity.status(HttpStatus.OK).build();
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+
+   }
+//TODO stessa cosa di sopra p.s ha senso ?
+    @PutMapping(value="/addProductFromWishlistToCart")
+    public ResponseEntity<Void> insertProductFromWishlistToCart(
+            @RequestParam UUID wishlist_id, UUID user_id,UUID product_id){
+        if(this.wishlistService.addProductFromWishlistToCart(wishlist_id,user_id,product_id))
+            return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+
+    }
+
 }

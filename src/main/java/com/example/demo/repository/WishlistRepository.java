@@ -57,11 +57,11 @@ public boolean deleteAll(UUID userId){
     int rows = this.jdbcTemplate.update("DELETE  FROM wishlist WHERE wishlist.user_id=?",userId);
     return rows >0;
 }
-
+/*
 public boolean addToWishlist(UUID wishlist_id,UUID product_id){
     int rows = this.jdbcTemplate.update("INSERT INTO wishlist_product (wishlist_id,produc_id)" +
             " VALUES (?,?)", wishlist_id,product_id);
     return rows>0;
 }
-
+*/
 }
