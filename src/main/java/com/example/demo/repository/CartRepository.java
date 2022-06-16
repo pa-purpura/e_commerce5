@@ -37,12 +37,29 @@ public class CartRepository {
         return rowsAffected > 0;
     }
 
+    public CartModel getCartByCartID(UUID cartID){
+        List<CartModel> cartList = jdbcTemplate.query("Select" +
+                        "    c.*," +
+                        "    sum(p.price) as total" +
+                        "    from cart c, cart_product cp, product p" +
+                        "    where c.id = '" + cartID+ "' and cp.cart_id = c.id and cp.product_id = p.id" +
+                        "   group by c.id;",
+                (rs, rowNum) ->
+                        new CartModel(
+                                (UUID) rs.getObject("id"),
+                                (UUID) rs.getObject("user_id"),
+                                rs.getDouble("total")
+                        )
+        );
+        return cartList.get(0);
+    }
+    //TODO: testare
     public CartModel getCartByUserID(UUID userID){
         List<CartModel> cartList = jdbcTemplate.query("Select\n" +
                         "    c.*,\n" +
                         "    sum(p.price) as total\n" +
                         "    from cart c, cart_product cp, product p\n" +
-                        "    where c.id = '" + userID+ "' and cp.cart_id = c.id and cp.product_id = p.id\\n\" +\n" +
+                        "    where c.user_id = '" + userID+ "' and cp.cart_id = c.id and cp.product_id = p.id\\n\" +\n" +
                         "   \"group by c.id;",
                 (rs, rowNum) ->
                         new CartModel(
@@ -53,6 +70,7 @@ public class CartRepository {
         );
         return cartList.get(0);
     }
+
 
     public List<CartModel> getCarts(){
         return jdbcTemplate.query("select * from cart;",

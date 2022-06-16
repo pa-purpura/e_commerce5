@@ -64,4 +64,28 @@ public class ProductRepository {
                         )
         );
     }
+
+    public ProductModel getProductByID(UUID productID){
+        List<ProductModel> productList = jdbcTemplate.query("Select * \n" +
+                        "from product\n" +
+                        "where product.id ='" + productID + "';",
+                (rs, rowNum) ->
+                        new ProductModel(
+                                (UUID) rs.getObject("id"),
+                                rs.getString("name"),
+                                rs.getDouble("price"),
+                                rs.getInt("stock"),
+                                rs.getString("description"),
+                                (UUID) rs.getObject("seller_id")
+                        )
+        );
+        return productList.get(0);
+    }
+
+    public boolean updateStockByProductId (UUID productID, int quantity){
+        int rowsAffected = jdbcTemplate.update(
+                "update PRODUCT set stock = stock - ? where id = ?", quantity, productID);
+        return rowsAffected > 0;
+    }
+
 }

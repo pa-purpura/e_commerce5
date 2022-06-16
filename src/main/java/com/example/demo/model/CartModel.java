@@ -37,4 +37,12 @@ public class CartModel {
     public void setUser_id(UUID user_id) {
         this.user_id = user_id;
     }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
 }

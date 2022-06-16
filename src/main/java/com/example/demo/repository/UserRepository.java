@@ -50,4 +50,26 @@ public class UserRepository {
         );
     }
 
+    public UserModel getUserByID(UUID userID){
+        List<UserModel> userList = jdbcTemplate.query("select * from \"user\" where \"user\".id ='"+ userID+"';",
+                (rs, rowNum) ->
+                        new UserModel(
+                                (UUID) rs.getObject("id"),
+                                rs.getString("name"),
+                                rs.getString("surname"),
+                                rs.getString("address"),
+                                rs.getDate("birthdate"),
+                                rs.getDouble("balance")
+                        )
+        );
+
+        return userList.get(0);
+    }
+
+    public boolean updateBalanceByUserId (UUID userId, double total){
+        int rowsAffected = jdbcTemplate.update(
+                "update \"user\" set balance = balance - ? where id = ?", total, userId);
+        return rowsAffected > 0;
+    }
+
 }

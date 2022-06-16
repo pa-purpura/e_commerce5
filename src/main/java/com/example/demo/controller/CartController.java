@@ -115,13 +115,14 @@ public class CartController {
     }
 
     //Buy
+    //TODO
     @PostMapping(value = "/buy")
     public ResponseEntity<Void> cartBuy(
             @RequestParam UUID idCart
     ) {
         if(idCart != null){
-            boolean inserted = false;
-            if(inserted){
+            UUID orderID = cartService.cartBuy(idCart);
+            if(orderID!= null){
                 return ResponseEntity.status(HttpStatus.OK).build();
             }
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
