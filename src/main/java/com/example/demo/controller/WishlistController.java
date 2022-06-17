@@ -28,9 +28,8 @@ public class WishlistController {
         if(wishlistService.insertWishlist(wishlistDTO)) return ResponseEntity.status(HttpStatus.OK).build();
         else return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
     }
-    //TODO non arrivano i parametri uuid
     @PostMapping(value="/addToWishlist")
-    public ResponseEntity<Void> addToWishlist(@RequestParam UUID wishlistID, UUID productID){
+    public ResponseEntity<Void> addToWishlist(@RequestParam UUID wishlistID,@RequestParam UUID productID){
         if(this.wishlistService.addToWishlist(wishlistID,productID))
             return ResponseEntity.status(HttpStatus.OK).build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -58,7 +57,7 @@ public class WishlistController {
 
     //TODO check se funziona(non prende gli UUID ma le stringhe si)
 @DeleteMapping(value= "/deleteProductFromWishlist")
-    public ResponseEntity<Void> deleteProdWishlist(@RequestParam UUID wishlist_id, UUID product_id){
+    public ResponseEntity<Void> deleteProdWishlist(@RequestParam UUID wishlist_id, @RequestParam UUID product_id){
         if(this.wishlistService.deleteFromWishlist(wishlist_id,product_id))
             return ResponseEntity.status(HttpStatus.OK).build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -72,7 +71,7 @@ public class WishlistController {
 
    //TODO minchia che odio gli uuid
    @PutMapping(value="/addWishlistToCart")
-   public ResponseEntity<Void> insertWishlistToCart(@RequestParam UUID wishlist_id, UUID user_id){
+   public ResponseEntity<Void> insertWishlistToCart(@RequestParam UUID wishlist_id, @RequestParam UUID user_id){
         if(this.wishlistService.addWishlistToCart(wishlist_id,user_id))
             return ResponseEntity.status(HttpStatus.OK).build();
       return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();

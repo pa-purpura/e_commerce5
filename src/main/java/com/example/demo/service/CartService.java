@@ -84,6 +84,9 @@ public class CartService {
                     }
                     //Updates user's balance
                     userRepository.updateBalanceByUserId(user.getId(), cart.getTotal());
+
+                    //Clear the cart deleting the products
+                    cartProductService.deleteCartProduct(idCart);
                     return orderId;
                 }
             }

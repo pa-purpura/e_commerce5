@@ -73,13 +73,13 @@ public class WishlistService {
 
     public boolean addWishlistToCart(UUID wishlistID,UUID userID) {
 
-        CartModel crt = this.cartRepository.getCartByUserID(userID);
+        UUID crt = this.cartRepository.getCartIDByUserID(userID);
         if (crt != null) {
             List<ProductViewModel> tmp = this.wishlistProductRepository.getProductsFromWishlist(wishlistID);
             for (ProductViewModel p : tmp) {
                 boolean b = this.cartProductRepository.insertCartProduct(
                         new CartProductModel(
-                                crt.getId(),
+                                crt,
                                 p.getProduct_id(),
                                 1));
                 if (!b) return false;

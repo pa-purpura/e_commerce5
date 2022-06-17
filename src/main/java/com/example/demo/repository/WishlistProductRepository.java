@@ -28,7 +28,7 @@ public class WishlistProductRepository {
 
  public boolean deleteFromWishlist(UUID wishlist_id, UUID product_id){
      int rows = jdbcTemplate.update("DELETE FROM wishlist_product " +
-             "WHERE wishlist_product.whislist_id= '"
+             "WHERE wishlist_product.wishlist_id= '"
              + wishlist_id +"' AND wishlist_product.product_id= '" +product_id +"';");
 
      return rows >0;

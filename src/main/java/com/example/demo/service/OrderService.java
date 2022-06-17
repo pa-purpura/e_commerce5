@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.OrderDTO;
+import com.example.demo.enums.OrderStatus;
 import com.example.demo.model.OrderModel;
 import com.example.demo.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,4 +43,9 @@ public class OrderService {
     public List<OrderModel> getOrdersByUserID(UUID userID){
         return orderRepository.getOrdersByUserID(userID);
     }
+
+    public boolean updateOrderStatusByOrderId(UUID orderID, OrderStatus orderStatus) {
+        return orderRepository.updateOrderStatusByOrderId(orderID,orderStatus);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.OrderDTO;
+import com.example.demo.enums.OrderStatus;
 import com.example.demo.model.OrderModel;
 import com.example.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +77,9 @@ public class OrderController {
         }
     }
 
-
+    @PutMapping(value="/updateOrderStatus")
+    public ResponseEntity<Void> updateOrderStatus(@RequestParam UUID orderID, @RequestParam() OrderStatus orderStatus){
+        if(orderService.updateOrderStatusByOrderId(orderID,orderStatus)) return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 }

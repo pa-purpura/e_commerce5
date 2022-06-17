@@ -61,4 +61,11 @@ public class OrderRepository {
                         )
         );
     }
+
+    public boolean updateOrderStatusByOrderId(UUID orderID,OrderStatus orderStatus){
+        int rowsAffected = jdbcTemplate.update(
+                "update \"order\" set status = '"+orderStatus.name()+"' where id = ?", orderID);
+        return rowsAffected > 0;
+    }
+
 }
