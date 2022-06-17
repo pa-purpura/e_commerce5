@@ -24,7 +24,7 @@ public class UserService {
 
         UserModel userToInsert = new UserModel(userID, userDTO.getName(), userDTO.getSurname(),
                 userDTO.getAddress(), userDTO.getBirthdate(), userDTO.getBalance());
-
+        //TODO: Chiedere melvin se ha senso creare qua il carrello (?)
         return userRepository.insertUser(userToInsert);
     }
 
