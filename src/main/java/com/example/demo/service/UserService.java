@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.UserDTO;
+import com.example.demo.model.CartModel;
 import com.example.demo.model.UserModel;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,11 @@ import java.util.UUID;
 @Service
 public class UserService {
     private UserRepository userRepository;
-
+    private CartService cartService;
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, CartService cartService) {
         this.userRepository = userRepository;
+        this.cartService = cartService;
     }
 
     public boolean insertUser(UserDTO userDTO){
@@ -24,8 +26,13 @@ public class UserService {
 
         UserModel userToInsert = new UserModel(userID, userDTO.getName(), userDTO.getSurname(),
                 userDTO.getAddress(), userDTO.getBirthdate(), userDTO.getBalance());
-        //TODO: Chiedere melvin se ha senso creare qua il carrello (?)
-        return userRepository.insertUser(userToInsert);
+
+        boolean userResult = userRepository.insertUser(userToInsert);
+        if(userResult){
+            return cartService.insertCart(userID);
+        }
+
+        return false;
     }
 
     public boolean deleteUser(UUID userID){

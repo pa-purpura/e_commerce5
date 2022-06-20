@@ -38,7 +38,8 @@ public class CartRepository {
     }
 
     public CartModel getCartByCartID(UUID cartID){
-        List<CartModel> cartList = jdbcTemplate.query("Select" +
+
+        CartModel cartModel = jdbcTemplate.queryForObject("Select" +
                         "    c.*," +
                         "    sum(p.price) as total" +
                         "    from cart c, cart_product cp, product p" +
@@ -51,10 +52,7 @@ public class CartRepository {
                                 rs.getDouble("total")
                         )
         );
-        if (!cartList.isEmpty()) {
-            return cartList.get(0);
-        }
-        return null;
+        return cartModel;
     }
 
     public CartModel getCartByUserID(UUID userID){

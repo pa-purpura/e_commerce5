@@ -30,7 +30,7 @@ public class CartProductService {
                 return this.cart_productRepository.insertCartProduct(cart_productModel);
             }else{
                 cart_productModel.setQuantity(productModel.getStock());
-            } //TODO: chiedere melvin come settare un commento del tipo "abbiamo cambiato quantita xoxo"
+            }
         }
 
         return this.cart_productRepository.insertCartProduct(cart_productModel);

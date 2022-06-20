@@ -15,8 +15,7 @@ public class WishlistProductRepository {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
-
-    // TODO
+    
  public  boolean insertProductToWishlist(WishlistProductModel wishlistProductModel){
      int rows = jdbcTemplate.update("INSERT INTO wishlist_product (wishlist_id,product_id) " +
              "VALUES (?,?)",

@@ -55,7 +55,6 @@ public class WishlistController {
         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
     }
 
-    //TODO check se funziona(non prende gli UUID ma le stringhe si)
 @DeleteMapping(value= "/deleteProductFromWishlist")
     public ResponseEntity<Void> deleteProdWishlist(@RequestParam UUID wishlist_id, @RequestParam UUID product_id){
         if(this.wishlistService.deleteFromWishlist(wishlist_id,product_id))
@@ -69,7 +68,6 @@ public class WishlistController {
          return ResponseEntity.status(HttpStatus.OK).body(tmp);
    }
 
-   //TODO minchia che odio gli uuid
    @PutMapping(value="/addWishlistToCart")
    public ResponseEntity<Void> insertWishlistToCart(@RequestParam UUID wishlist_id, @RequestParam UUID user_id){
         if(this.wishlistService.addWishlistToCart(wishlist_id,user_id))
@@ -77,10 +75,12 @@ public class WishlistController {
       return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
 
    }
-//TODO stessa cosa di sopra p.s ha senso ?
+
     @PutMapping(value="/addProductFromWishlistToCart")
     public ResponseEntity<Void> insertProductFromWishlistToCart(
-            @RequestParam UUID wishlist_id, UUID user_id,UUID product_id){
+            @RequestParam UUID wishlist_id,
+            @RequestParam UUID user_id,
+            @RequestParam UUID product_id){
         if(this.wishlistService.addProductFromWishlistToCart(wishlist_id,user_id,product_id))
             return ResponseEntity.status(HttpStatus.OK).build();
         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();

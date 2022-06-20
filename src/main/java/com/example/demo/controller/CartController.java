@@ -115,7 +115,6 @@ public class CartController {
     }
 
     //Buy
-    //TODO
     @PostMapping(value = "/buy")
     public ResponseEntity<Void> cartBuy(
             @RequestParam UUID idCart
